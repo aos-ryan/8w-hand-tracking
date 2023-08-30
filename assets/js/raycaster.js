@@ -1,20 +1,30 @@
 const handRaycaster = {
   init() {
     this.raycaster = new THREE.Raycaster()
+    this.arrow = new THREE.ArrowHelper()
     this.handVisible = false
-    this.handObject = {}
-    this.el.sceneEl.addEventListener('xrhandfound', updatePoints)
+    this.indexNail = document.getElementById('indexNail')
+    this.indexTip = document.getElementById('indexTip')
+
+    this.el.sceneEl.addEventListener('xrhandfound', () => {
+      console.log('hand found!')
+      this.handVisible = true
+    })
     this.el.sceneEl.addEventListener('xrhandlost', () => {
       this.handVisible = false
+      console.log('hand lost!')
     })
-    const updatePoints = (e) => {
-      this.handObject = e.detail
-    }
   },
   tick() {
     if (this.handVisible) {
-      // console.log(this.el.object3D)
-      // console.log('ring nail position:', )
+      console.log('indexNail positon:', this.indexNail.object3D.position)
+      console.log('indexTip positon:', this.indexTip.object3D.position)
+      this.raycaster.set(
+        this.indexTip.object3D.position,
+        this.indexNail.object3D.position
+      )
+      this.arrow.position.copy(this.indexNail.object3D.position)
+      this.arrow.setDirection(this.indexTip.object3D.position)
     }
   },
 }

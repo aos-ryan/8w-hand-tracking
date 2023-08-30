@@ -7,6 +7,7 @@
       xrextras-pause-on-hidden
       renderer="colorManagement: true"
       xrhand
+      stats
     >
       <a-light type="ambient" intensity="0.8"></a-light>
       <a-assets> </a-assets>
@@ -19,12 +20,18 @@
 
       <xrextras-hand-anchor id="hand">
         <xrextras-hand-mesh> </xrextras-hand-mesh>
-        <xrextras-hand-attachment id="palm" point="indexTip" pointType="center">
-          <a-entity
-            id="handRaycaster"
-            raycaster="objects: .pointTarget; showLine: true; lineColor: red; direction: 0 0 5"
-          >
-          </a-entity>
+        <xrextras-hand-attachment
+          id="indexTip"
+          point="indexTip"
+          pointType="center"
+        >
+        </xrextras-hand-attachment>
+        <xrextras-hand-attachment
+          id="indexNail"
+          point="indexNail"
+          pointType="center"
+        >
+          <a-entity id="handRaycaster" hand-raycaster> </a-entity>
         </xrextras-hand-attachment>
       </xrextras-hand-anchor>
 
@@ -42,13 +49,13 @@ export default {
   },
   mounted() {
     const scene = document.getElementById('scene')
-    scene.addEventListener('xrhandfound', (e) => {
-      console.log(e.detail)
-    })
-    const raycaster = document.getElementById('handRaycaster')
-    raycaster.addEventListener('raycaster-intersection', (e) => {
-      console.log(e.detail)
-    })
+    // scene.addEventListener('xrhandfound', (e) => {
+    //   console.log(e.detail)
+    // })
+    // const raycaster = document.getElementById('handRaycaster')
+    // raycaster.addEventListener('raycaster-intersection', (e) => {
+    //   console.log(e.detail)
+    // })
   },
   methods: {},
 }
