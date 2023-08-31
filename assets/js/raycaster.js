@@ -1,7 +1,6 @@
 const handRaycaster = {
   init() {
     this.raycaster = new THREE.Raycaster()
-    this.arrow = new THREE.ArrowHelper()
     this.handVisible = false
     this.indexNail = document.getElementById('indexNail')
     this.indexTip = document.getElementById('indexTip')
@@ -17,14 +16,16 @@ const handRaycaster = {
   },
   tick() {
     if (this.handVisible) {
+      let nailWorldPosition = new THREE.Vector3()
+      let tipWorldPosition = new THREE.Vector3()
+
+      this.indexNail.object3D.getWorldPosition(nailWorldPosition)
+      this.indexTip.object3D.getWorldPosition(tipWorldPosition)
+
       console.log('indexNail positon:', this.indexNail.object3D.position)
+      console.log('indexNail world positon:', nailWorldPosition)
       console.log('indexTip positon:', this.indexTip.object3D.position)
-      this.raycaster.set(
-        this.indexTip.object3D.position,
-        this.indexNail.object3D.position
-      )
-      this.arrow.position.copy(this.indexNail.object3D.position)
-      this.arrow.setDirection(this.indexTip.object3D.position)
+      console.log('indexTip world positon:', tipWorldPosition)
     }
   },
 }
