@@ -24,7 +24,10 @@
         </xrextras-hand-attachment>
       </xrextras-hand-anchor>
 
-      <a-sphere class="pointTarget" position="1 1.6 -10"> </a-sphere>
+      <a-entity id="targets">
+        <a-sphere class="pointTarget" position="1 1.6 -10"> </a-sphere>
+        <a-sphere class="pointTarget" position="1 2.6 -8"> </a-sphere>
+      </a-entity>
     </a-scene>
   </div>
 </template>
