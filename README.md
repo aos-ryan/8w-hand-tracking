@@ -1,4 +1,4 @@
-# aframe-oimo
+# 8w-hand-tracking
 
 ## Build Setup
 
