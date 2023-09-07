@@ -12,32 +12,19 @@
       <a-light type="ambient" intensity="0.8"></a-light>
       <a-assets> </a-assets>
 
-      <a-camera
-        look-controls="enabled: false"
-        wasd-controls="enabled: false"
-        position="0 1.6 0"
-      ></a-camera>
+      <a-camera position="0 1.6 0"></a-camera>
 
       <xrextras-hand-anchor id="hand">
-        <xrextras-hand-mesh> </xrextras-hand-mesh>
-        <xrextras-hand-attachment
-          id="indexTip"
-          point="indexTip"
-          pointType="center"
-        >
-        </xrextras-hand-attachment>
-        <xrextras-hand-attachment
-          id="indexNail"
-          point="indexNail"
-          pointType="center"
-        >
+        <xrextras-hand-mesh material="color: white; transparent: false;">
+        </xrextras-hand-mesh>
+        <xrextras-hand-attachment id="palm" point="palm" pointType="center">
           <a-entity id="handRaycaster" hand-raycaster> </a-entity>
+        </xrextras-hand-attachment>
+        <xrextras-hand-attachment id="thumbTip" point="thumbTip">
         </xrextras-hand-attachment>
       </xrextras-hand-anchor>
 
-      <a-sphere class="pointTarget" position="0 8 -20"> </a-sphere>
       <a-sphere class="pointTarget" position="5 8 -20"> </a-sphere>
-      <a-sphere class="pointTarget" position="-5 8 -20"> </a-sphere>
     </a-scene>
   </div>
 </template>
