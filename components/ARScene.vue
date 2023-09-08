@@ -15,7 +15,10 @@
       <a-camera position="0 1.6 0"></a-camera>
 
       <xrextras-hand-anchor id="hand">
-        <xrextras-hand-mesh material="color: white; transparent: false;">
+        <xrextras-hand-mesh
+          material="color: white; transparent: false;"
+          wireframe="true"
+        >
         </xrextras-hand-mesh>
         <xrextras-hand-attachment id="palm" point="palm" pointType="center">
           <a-entity id="handRaycaster" hand-raycaster> </a-entity>
@@ -25,9 +28,26 @@
       </xrextras-hand-anchor>
 
       <a-entity id="targets">
-        <a-sphere class="pointTarget" position="1 1.6 -10"> </a-sphere>
-        <a-sphere class="pointTarget" position="1 2.6 -8"> </a-sphere>
+        <a-icosahedron
+          class="pointTarget"
+          position="1 1.6 -5"
+          scale="0.2 0.2 0.2"
+          material="wireframe: true"
+          animation__rotate="property: rotation; to: 360 360 0; loop: true; dur: 6000; easing: linear;"
+          @loaded="randomMove"
+        >
+        </a-icosahedron>
+        <a-icosahedron
+          class="pointTarget"
+          position="-1 1.6 -3"
+          scale="0.2 0.2 0.2"
+          material="wireframe: true"
+          animation__rotate="property: rotation; to: 360 360 0; loop: true; dur: 6000; easing: linear;"
+          @loaded="randomMove"
+        >
+        </a-icosahedron>
       </a-entity>
+      <a-sky color="black"></a-sky>
     </a-scene>
   </div>
 </template>
@@ -47,7 +67,18 @@ export default {
     //   console.log(e.detail)
     // })
   },
-  methods: {},
+  methods: {
+    randomMove(e) {
+      const x = (Math.random() + Math.random()).toFixed(2)
+      const y = (Math.random() + Math.random()).toFixed(2)
+      const z = -(Math.random() * 4 + 1 + Math.random()).toFixed(2)
+      console.log(e.target)
+      e.target.setAttribute(
+        'animation',
+        `property: position; to: ${x} ${y} ${z}; dur: 3000; loop: true; dir: alternate; easing: easeInOutQuad;`
+      )
+    },
+  },
 }
 </script>
 
