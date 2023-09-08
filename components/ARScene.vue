@@ -72,13 +72,6 @@ export default {
   },
   mounted() {
     const scene = document.getElementById('scene')
-    // scene.addEventListener('xrhandfound', (e) => {
-    //   console.log(e.detail)
-    // })
-    // const raycaster = document.getElementById('handRaycaster')
-    // raycaster.addEventListener('raycaster-intersection', (e) => {
-    //   console.log(e.detail)
-    // })
     scene.addEventListener('xrhandfound', () => (this.hasHand = true))
     scene.addEventListener('xrhandlost', () => (this.hasHand = false))
   },

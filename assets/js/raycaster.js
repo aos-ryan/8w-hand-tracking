@@ -15,7 +15,6 @@ const handRaycaster = {
     this.palmQuaternion = new THREE.Quaternion()
     this.thumbPosition = new THREE.Vector3()
     this.targets = document.getElementById('targets').object3D.children
-    console.log(this.targets)
 
     // conditional logic variables
     this.handVisible = false
@@ -59,7 +58,7 @@ const handRaycaster = {
         }
 
         // If no target was hit, just travel further
-        bullet.position.add(this.raycasterDirection.multiplyScalar(0.1))
+        bullet.position.add(this.raycasterDirection.multiplyScalar(0.2))
 
         // if bullet travels too far, aso remove it from the scene
         if (bullet.position.z <= -7 || bullet.position.z > 3) {
@@ -88,11 +87,6 @@ const handRaycaster = {
       // add the bullet to the scene
       this.scene.add(bullet)
 
-      // console.log('bullet position', bullet.position)
-      // console.log(
-      //   'bullet world direction',
-      //   bullet.getWorldDirection(new THREE.Vector3())
-      // )
       // bullet world direction is towards positive Z, which is towards the camera in aframe
 
       // push the bullet to the array to handle the updates / collision
