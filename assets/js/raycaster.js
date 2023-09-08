@@ -62,7 +62,7 @@ const handRaycaster = {
         bullet.position.add(this.raycasterDirection.multiplyScalar(0.1))
 
         // if bullet travels too far, aso remove it from the scene
-        if (bullet.position.z <= -7) {
+        if (bullet.position.z <= -7 || bullet.position.z > 3) {
           // Remove bullet from the world
           bullet.removeFromParent()
 

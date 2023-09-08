@@ -1,5 +1,16 @@
 <template>
   <div>
+    <!-- ui elements -->
+    <div id="overlay" class="absolute-fill">
+      <span id="promptText" v-if="hasHand"
+        >Squeeze your hand to fire projectiles outward from your palm.</span
+      >
+      <span id="promptText" v-else
+        >Point your device camera at your outstretched hand.</span
+      >
+    </div>
+
+    <!-- aframe elements -->
     <a-scene
       id="scene"
       xrextras-loading
@@ -55,7 +66,9 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      hasHand: false,
+    }
   },
   mounted() {
     const scene = document.getElementById('scene')
@@ -66,6 +79,8 @@ export default {
     // raycaster.addEventListener('raycaster-intersection', (e) => {
     //   console.log(e.detail)
     // })
+    scene.addEventListener('xrhandfound', () => (this.hasHand = true))
+    scene.addEventListener('xrhandlost', () => (this.hasHand = false))
   },
   methods: {
     randomMove(e) {
@@ -89,5 +104,26 @@ div {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.absolute-fill {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+#promptText {
+  font-size: 14px;
+  text-align: center;
+  color: white;
+
+  position: absolute;
+  width: 100%;
+  bottom: 5vh;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>
