@@ -21,6 +21,33 @@ const handRaycaster = {
     this.firedShot = false
     this.bullets = []
 
+    // shader for explosion on hit
+    this.explosionMaterial = new THREE.RawShaderMaterial({
+      vertexShader: `attribute vec4 position;
+      attribute vec3 normal;
+
+      uniform mat4 projectionMatrix;
+      uniform mat4 modelViewMatrix;
+
+      uniform float time;
+
+      varying vec3 vNormal;
+
+      void main () {
+        vNormal = normal;
+
+        vec4 offset = position;
+
+        float dist = time * 0.5 + 0.5;
+
+        offset.xyz += normal * dist;
+        gl_Position = projectionMatrix * modelViewMatrix * offset;
+      }`,
+      uniforms: {
+        time: { type: 'f', value: 0 },
+      },
+    })
+
     // add event listener to determine when hand is found in scene
     this.el.sceneEl.addEventListener('xrhandfound', () => {
       console.log('hand found!')
@@ -49,7 +76,9 @@ const handRaycaster = {
           // TODO react to being hit by the bullet in some way
           console.log('hit!')
           console.log(firstHitTarget)
-          firstHitTarget.object.material.color.set('red')
+          // firstHitTarget.setAttribute('material', 'shader: explode')
+          // firstHitTarget.object.material = this.explosionMaterial
+          // firstHitTarget.object.material.uniforms.time.value = time
 
           // Remove bullet from the world
           bullet.removeFromParent()
@@ -69,13 +98,14 @@ const handRaycaster = {
         }
       })
     }
+    // create geometry and mesh once to be reused for every bullet
+    this.geometry = new THREE.SphereGeometry(1, 32, 16)
+    this.material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
 
     this.fireBullet = () => {
       console.log('fired shot')
       // create geometry, material, and mesh
-      const geometry = new THREE.SphereGeometry(1, 32, 16)
-      const material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
-      const bullet = new THREE.Mesh(geometry, material)
+      const bullet = new THREE.Mesh(this.geometry, this.material)
 
       // apply the position and rotation of the palm to the bullet
       bullet.position.copy(this.palmPosition)

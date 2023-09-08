@@ -26,4 +26,5 @@ Vue.config.ignoredElements = [
   'xrextras-hand-anchor',
   'xrextras-hand-mesh',
   'xrextras-hand-attachment',
+  'a-icosahedron',
 ]

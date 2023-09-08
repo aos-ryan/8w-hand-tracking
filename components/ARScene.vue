@@ -80,7 +80,7 @@ export default {
       const x = (Math.random() + Math.random()).toFixed(2)
       const y = (Math.random() + Math.random()).toFixed(2)
       const z = -(Math.random() * 4 + 1 + Math.random()).toFixed(2)
-      console.log(e.target)
+      // console.log(e.target)
       e.target.setAttribute(
         'animation',
         `property: position; to: ${x} ${y} ${z}; dur: 3000; loop: true; dir: alternate; easing: easeInOutQuad;`
