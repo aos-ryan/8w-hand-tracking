@@ -20,6 +20,7 @@ const handRaycaster = {
     this.handVisible = false
     this.firedShot = false
     this.bullets = []
+    this.storedTargets = []
 
     // shader for explosion on hit
     this.explosionMaterial = new THREE.RawShaderMaterial({
@@ -76,9 +77,10 @@ const handRaycaster = {
           // TODO react to being hit by the bullet in some way
           console.log('hit!')
           console.log(firstHitTarget)
-          // firstHitTarget.setAttribute('material', 'shader: explode')
-          // firstHitTarget.object.material = this.explosionMaterial
-          // firstHitTarget.object.material.uniforms.time.value = time
+          firstHitTarget.object.material = this.explosionMaterial
+
+          this.storedTargets.push(firstHitTarget)
+          console.log('storedTargets', this.storedTargets)
 
           // Remove bullet from the world
           bullet.removeFromParent()
@@ -99,7 +101,7 @@ const handRaycaster = {
       })
     }
     // create geometry and mesh once to be reused for every bullet
-    this.geometry = new THREE.SphereGeometry(1, 32, 16)
+    this.geometry = new THREE.SphereGeometry(1, 16, 8)
     this.material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
 
     this.fireBullet = () => {
@@ -142,6 +144,13 @@ const handRaycaster = {
     }
     // update the bullets in the scene
     this.updateBullets()
+
+    // update uniforms of the targets that have been hit
+    if (this.storedTargets.length >= 1) {
+      ;[...this.storedTargets].forEach((target) => {
+        target.object.material.uniforms.time.value += 0.1
+      })
+    }
   },
 }
 export { handRaycaster }

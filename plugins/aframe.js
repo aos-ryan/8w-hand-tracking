@@ -13,7 +13,8 @@ AFRAME.registerShader('explode', {
   schema: {
     timeMsec: { type: 'time', is: 'uniform' },
   },
-  vertexShader: `attribute vec4 position;
+  vertexShader: `
+  attribute vec4 position;
   attribute vec3 normal;
 
   uniform mat4 projectionMatrix;
@@ -33,5 +34,6 @@ AFRAME.registerShader('explode', {
 
     offset.xyz += normal * dist;
     gl_Position = projectionMatrix * modelViewMatrix * offset;
-  }`,
+  }
+  `,
 })
